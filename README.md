@@ -27,7 +27,7 @@ Set your `SYNTH_PATH` variable.  Example:
 ### Windows ###
 Download the pre built Windows `protoc` compiler and install it in `$SYNTH_PATH/core/bin`.
 
-Set your `PROTO_PATH` variable. See [here](#getting-started-with-music-synthesizer-development). Example:
+Set your `PROTO_PATH` variable. Example:
 
     export PROTO_PATH=$HOME/protobuf-{VERSION}
 
@@ -42,7 +42,7 @@ Extract the buffers:
 
     tar -xzvf protobuf-*.tar.gz
 
-Set your `PROTO_PATH` variable. See [here](#getting-started-with-music-synthesizer-development). Example:
+Set your `PROTO_PATH` variable. Example:
 
     export PROTO_PATH=$HOME/protobuf-{VERSION}
 
