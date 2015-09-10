@@ -80,7 +80,7 @@ ant test
 The synthesizer engine is written in C++ for higher performance, and uses OpenSL ES to output sound. You will need to install the [Android NDK](https://developer.android.com/ndk). _NOTE:_ Currently only NDK 9d and earlier is supported. Download NDK 9 @ http://dl.google.com/android/ndk/android-ndk-r9-linux-x86.tar.bz2.
 
 ### Compiling the Synthesizer Engine ###
-The shared library build depends on the target architecture (unlike Java code). It can be changed by editing `APP\_ABI` in the `android/jni/Application.mk` file. We have defaulted `APP\_ABI` to `all` so that it will run on more devices. However this is at the expense of slowing the compile cycle and increasing the APK file size. If you are routinely editing code for a single device, you may want to change this to the proper architecture. See [here](https://developer.android.com/ndk/guides/arch.html) for more information. ___Note:___ Code built for `armeabi` will run on _ARM v7_ devices, but more slowly.
+The result of this step is the `libsynth.so` files found in `$SYNTH_PATH/android/libs/*/` which contain any shared libraries.  A NDK build depends on the target architecture (unlike Java code). It can be changed by editing `APP\_ABI` in the `android/jni/Application.mk` file. We have defaulted `APP\_ABI` to `all` so that it will run on all possible devices. However, this is at the expense of slowing the compile cycle and increasing the APK file size. If you are routinely editing code for a single device, you may want to change this to the proper architecture. See [here](https://developer.android.com/ndk/guides/arch.html) for more information. _Note:_ Code built for `armeabi` will run on _ARM v7_ devices, but more slowly.  
 
 You can either manually run the NDK compile, or set up your Eclipse project to run it automatically:
   - Manual Building 
@@ -89,14 +89,14 @@ You can either manually run the NDK compile, or set up your Eclipse project to r
 
         cd $SYNTH_PATH/android
         ndk-build
- 
-    The result of the `ndk-build` step is the `libsynth.so` files found in `$SYNTH_PATH/android/libs/*/` which contain the shared library.
 
   - Integrated Eclipse Building 
 
     Edit `android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary. Example:
     
         ${HOME}/install/android-ndk-{VERSION}/ndk-build
+
+_NOTE:_ If you run into any errors, try `ndk-build clean` then `ndk-build` before searching for a fix.
 
 ## Make the Environment Variables Persistent ##
 You will probably want to add the `SYNTH_PATH` & `PROTO_PATH` environment variables to the OS so life is easier after a reboot. (You may want to include both the NDK and SDK Tools on your `PATH` as well.)
@@ -114,4 +114,4 @@ Append the `export X_PATH=path/to/something` to the end of your `~/.profile`, `/
 1. Make a new workspace.
 2. Import the project. _File > Import > Android > Existing Android Code Into Workspace_. Follow on-screen instructions.
 
-Note: You will probably get errors on import (duplicate entry 'src', empty ${project\_loc}, and maybe others). You can ignore these (although it would be great to clean them up).
+_Note:_ You will probably get errors on import (duplicate entry 'src', empty ${project\_loc}, and maybe others). You can ignore these (although it would be great to clean them up).
