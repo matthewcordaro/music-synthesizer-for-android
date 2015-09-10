@@ -36,8 +36,9 @@ Set your `SYNTH_PATH` variable.  Example:
 Install the pre built Windows `protoc` compiler in `$SYNTH_PATH/core/bin`.
 
 Set your `PROTO_PATH` variable. Example:
-
-    export PROTO_PATH=$HOME/protobuf-{VERSION}
+<pre>
+export PROTO_PATH=$HOME/protobuf-<b>{VERSION}</b>
+</pre>
 
 ### Debian (Ubuntu) ###
 Extract the buffers:
@@ -45,8 +46,9 @@ Extract the buffers:
     tar -xzvf protobuf-*.tar.gz
 
 Set your `PROTO_PATH` variable. Example:
-
-    export PROTO_PATH=$HOME/protobuf-{VERSION}
+<pre>
+export PROTO_PATH=$HOME/protobuf-<b>{VERSION}</b>
+</pre>
 
 Build the `protoc` compiler by running the following commands:
 ```
@@ -59,15 +61,16 @@ mkdir $SYNTH_PATH/core/bin
 cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
 ```
 
-Build the protocol buffer runtime libraries jar.
-```
+Build the protocol buffer runtime libraries jar by running the following commands:
+<pre>
 cd $PROTO_PATH/java
 mvn test
 mvn install
 mvn package
 mkdir $SYNTH_PATH/core/lib
-cp $PROTO_PATH/java/target/protobuf-java-{VERSION}.jar $SYNTH_PATH/core/lib/libprotobuf.jar
-```
+cp $PROTO_PATH/java/target/protobuf-java-<b>{VERSION}</b>.jar $SYNTH_PATH/core/lib/libprotobuf.jar
+</pre>
+
 
 ## Testing Music Synthesizer for Android core components ##
 To make sure everything so far is installed correctly, run the tests and make sure they all build and pass.
@@ -93,8 +96,9 @@ You can either manually run the NDK compile, or set up your Eclipse project to r
   - Integrated Eclipse Building 
 
     Edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary. Example:
-    
-        ${HOME}/install/android-ndk-{VERSION}/ndk-build
+    <pre>
+    ${HOME}/install/android-ndk-<b>{VERSION}</b>/ndk-build
+    </pre>
 
 _Tip:_ If you run into any errors, try `ndk-build clean` then `ndk-build` before searching for a fix.
 
