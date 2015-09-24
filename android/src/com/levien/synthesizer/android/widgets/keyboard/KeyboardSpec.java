@@ -112,6 +112,6 @@ public class KeyboardSpec {
   public float maxX;
   private int ix_;
 
-  private static final int B = Color.GRAY;
+  private static final int B = Color.BLACK;
   private static final int W = Color.WHITE;
 }
