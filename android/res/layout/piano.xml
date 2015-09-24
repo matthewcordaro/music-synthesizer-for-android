@@ -12,26 +12,6 @@
         android:text="@string/volume"
         android:id="@+id/volumeLabel"
         android:gravity="center_horizontal" />
-    <TextView
-        android:text=""
-        android:id="@+id/emptyLabel"
-        android:gravity="center_horizontal" />
-    <TextView
-        android:text=""
-        android:id="@+id/emptyLabel"
-        android:gravity="center_horizontal" />
-    <TextView
-        android:text=""
-        android:id="@+id/emptyLabel"
-        android:gravity="center_horizontal" />
-    <TextView
-        android:text=""
-        android:id="@+id/emptyLabel"
-        android:gravity="center_horizontal" />
-    <TextView
-        android:text=""
-        android:id="@+id/emptyLabel"
-        android:gravity="center_horizontal" />
   </TableRow>
   <TableRow>
     <com.levien.synthesizer.android.widgets.knob.KnobView
