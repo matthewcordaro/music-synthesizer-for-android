@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res/com.levien.synthesizer"
     android:id="@+id/TableLayout01"
-    android:background="#ffffff"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#ffffff"
     android:orientation="vertical">
+    
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
