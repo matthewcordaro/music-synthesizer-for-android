@@ -126,6 +126,8 @@ public class KeyboardView extends View {
         canvas.drawRect(x, y, x + width, y + height, paint_);
       } else {
         paint_.setColor(Color.WHITE);
+        paint_.setStyle(Style.STROKE);
+        canvas.drawRect(x, y, x + width, y + height, paint_);
       }
 
       // Draw note label
