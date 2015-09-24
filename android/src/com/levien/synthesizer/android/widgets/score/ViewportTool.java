@@ -98,7 +98,7 @@ public class ViewportTool extends ScoreViewTool {
         logger_.severe("Initial pointer has id " + pointerId);
       }
     } else if (actionCode == MotionEvent.ACTION_POINTER_DOWN) {
-      int pointerId = action >> MotionEvent.ACTION_POINTER_ID_SHIFT;
+      int pointerId = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
       int pointerIndex = event.findPointerIndex(pointerId);
       if (pointerId == 1 && pointerIndex >= 0) {
         startX2_ = (int)event.getX(pointerIndex);
