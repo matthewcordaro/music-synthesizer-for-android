@@ -149,7 +149,7 @@ public class PlayTool extends ScoreViewTool {
         redraw |= onTouchDown(view, pointerId, x, y);
       }
     } else if (actionCode == MotionEvent.ACTION_POINTER_DOWN) {
-      int pointerId = action >> MotionEvent.ACTION_POINTER_ID_SHIFT;
+      int pointerId = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
       if (pointerId < FINGERS) {
         int pointerIndex = event.findPointerIndex(pointerId);
         if (pointerIndex >= 0) {
@@ -189,7 +189,7 @@ public class PlayTool extends ScoreViewTool {
         }
       }
     } else if (actionCode == MotionEvent.ACTION_POINTER_UP) {
-      int pointerId = action >> MotionEvent.ACTION_POINTER_ID_SHIFT;
+      int pointerId = action >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
       if (pointerId < FINGERS) {
         redraw |= onTouchUp(view, pointerId);
       }
