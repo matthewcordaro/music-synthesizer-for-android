@@ -126,7 +126,7 @@ public class SynthesizerThread {
 
       // Get the smallest buffer to minimize latency.
       int bufferSizeInBytes = AudioTrack.getMinBufferSize(sampleRateInHz_,
-                                                          AudioFormat.CHANNEL_CONFIGURATION_MONO,
+                                                          AudioFormat.CHANNEL_OUT_MONO,
                                                           AudioFormat.ENCODING_PCM_16BIT);
       Log.i(getClass().getName(), "Output sample rate: " + sampleRateInHz_);
       Log.i(getClass().getName(), "Minimum buffer size: " + bufferSizeInBytes);
