@@ -16,6 +16,9 @@
 
 package com.levien.synthesizer.android.widgets.piano;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +40,9 @@ import com.levien.synthesizer.core.music.Note;
  * PianoView is a UI widget that simulates a music keyboard.
  */
 public class PianoView extends View {
+
+  private static final String FILENAME = "myRecordFile.midi";
+
   /**
    * Basic android widget constructor.
    */
@@ -158,6 +164,7 @@ public class PianoView extends View {
       if (keyDown != null) {
         // If we already found a key that's being touched, then none of the rest can be.
         redraw |= keys_[i].onTouchUp(finger);
+
       } else if (keys_[i].contains(x, y)) {
         // This key is being touched.
         redraw |= keys_[i].onTouchDown(finger);
@@ -293,27 +300,27 @@ public class PianoView extends View {
       }
     } else if (actionCode == MotionEvent.ACTION_POINTER_UP) {
       int pointerIndex = (action & MotionEvent.ACTION_POINTER_INDEX_MASK) >> MotionEvent.ACTION_POINTER_INDEX_SHIFT;
-      int pointerId = event.getPointerId(pointerIndex);
-      if (pointerId < FINGERS) {
-        redraw |= onTouchUp(pointerId);
-      }
-      // Clean up any other pointers that have disappeared. Note: this is probably not necessary.
-      for (pointerId = 0; pointerId < FINGERS; ++pointerId) {
-        boolean found = false;
-        for (pointerIndex = 0; pointerIndex < event.getPointerCount(); ++pointerIndex) {
-          if (pointerId == event.getPointerId(pointerIndex)) {
-            found = true;
-            break;
+        int pointerId = event.getPointerId(pointerIndex);
+        if (pointerId < FINGERS) {
+          redraw |= onTouchUp(pointerId);
+        }
+        // Clean up any other pointers that have disappeared. Note: this is probably not necessary.
+        for (pointerId = 0; pointerId < FINGERS; ++pointerId) {
+          boolean found = false;
+          for (pointerIndex = 0; pointerIndex < event.getPointerCount(); ++pointerIndex) {
+            if (pointerId == event.getPointerId(pointerIndex)) {
+              found = true;
+              break;
+            }
+          }
+          if (!found) {
+            boolean thisRedraw = onTouchUp(pointerId);
+            if (thisRedraw) {
+              Log.i("synth", "ACTION_POINTER_UP cleaned up pointerId=" + pointerId);
+            }
+            redraw |= thisRedraw;
           }
         }
-        if (!found) {
-          boolean thisRedraw = onTouchUp(pointerId);
-          if (thisRedraw) {
-            Log.i("synth", "ACTION_POINTER_UP cleaned up pointerId=" + pointerId);
-          }
-          redraw |= thisRedraw;
-        }
-      }
     } else {
       return super.onTouchEvent(event);
     }

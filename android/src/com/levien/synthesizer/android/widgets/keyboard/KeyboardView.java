@@ -30,6 +30,8 @@ import android.view.View;
 import com.levien.synthesizer.core.midi.MidiListener;
 
 public class KeyboardView extends View {
+  KeyboardViewListener keyboardViewListener;
+  
   public KeyboardView(Context context, AttributeSet attrs) {
     super(context, attrs);
     nKeys_ = 96;
@@ -59,6 +61,10 @@ public class KeyboardView extends View {
     keyboardSpec_ = keyboardSpec;
     keyboardScale_ = zoom_ / keyboardSpec_.repeatWidth * keyboardSpec_.keys.length / nKeys_;
     invalidate();
+  }
+  
+  public void setKeyboardViewListener(KeyboardViewListener kvl){
+    keyboardViewListener = kvl;
   }
 
   public void setMidiListener(MidiListener listener) {
@@ -225,6 +231,7 @@ public class KeyboardView extends View {
       noteStatus_[note] = (byte)velocity;
       if (midiListener_ != null) {
         midiListener_.onNoteOn(0, note, velocity);
+        keyboardViewListener.noteDown(0, note, velocity);
       }
       return true;
     }
@@ -237,6 +244,7 @@ public class KeyboardView extends View {
       int velocity = noteStatus_[note];
       if (midiListener_ != null) {
         midiListener_.onNoteOff(0, note, velocity);
+        keyboardViewListener.noteUp(0,note);
       }
       noteForFinger_[id] = -1;
       noteStatus_[note] = 0;
@@ -255,6 +263,8 @@ public class KeyboardView extends View {
         if (midiListener_ != null) {
           midiListener_.onNoteOff(0, oldNote, velocity);
           midiListener_.onNoteOn(0, newNote, velocity);
+          keyboardViewListener.noteUp(0, oldNote);
+          keyboardViewListener.noteDown(0, newNote, velocity);
         }
         noteForFinger_[id] = newNote;
         noteStatus_[oldNote] = 0;

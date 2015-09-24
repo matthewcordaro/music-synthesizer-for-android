@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="9"
-        android:targetSdkVersion="17" /> <!-- 9 = Gingerbread -->
+        android:targetSdkVersion="19" /> <!-- 9 = Gingerbread -->
 
     <uses-feature
         android:name="android.hardware.usb.host"
@@ -19,16 +19,23 @@
         android:label="@string/app_name"
         android:theme="@style/LightThemeSelector" >
         <activity
-            android:name="com.levien.synthesizer.android.ui.PianoActivity2"
+            android:name="com.levien.synthesizer.android.ui.IntroActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
-            android:screenOrientation="landscape"
+            android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.levien.synthesizer.android.ui.PianoActivity2"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.hardware.usb.action.USB_DEVICE_ATTACHED" />
             </intent-filter>
@@ -38,53 +45,58 @@
                 android:resource="@xml/device_filter" />
         </activity>
         <activity
+            android:name="com.levien.synthesizer.android.ui.IntroMenuActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@android:style/Theme.Light.NoTitleBar" />
+        <activity
             android:name="com.levien.synthesizer.android.ui.MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.ScoreActivity"
             android:label="@string/app_name"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.ChordGridActivity"
             android:label="@string/chord_grid"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.InstrumentListActivity"
             android:label="@string/instrument_list"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.EditInstrumentActivity"
             android:label="@string/edit_instrument"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.VibratoActivity"
             android:label="@string/vibrato"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.OscillatorActivity"
             android:label="@string/oscillator"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.TremoloActivity"
             android:label="@string/tremolo"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.LowPassFilterActivity"
             android:label="@string/low_pass_filter"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.AmplificationActivity"
             android:label="@string/amplification"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.EffectsActivity"
             android:label="@string/effects"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.KarplusStrongActivity"
             android:label="@string/karplus_strong"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="sensorLandscape" />
         <activity
             android:name="com.levien.synthesizer.android.ui.SettingsActivity"
             android:label="@string/settings" />

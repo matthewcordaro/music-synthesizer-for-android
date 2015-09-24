@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.google.protobuf.TextFormat;
+import com.levien.synthesizer.android.service.SynthesizerService;
 import com.levien.synthesizer.core.midi.MidiAdapter;
 import com.levien.synthesizer.core.model.SignalProvider;
 import com.levien.synthesizer.core.model.SynthesisTime;
@@ -48,6 +49,13 @@ public class MultiChannelSynthesizer extends MidiAdapter implements SignalProvid
     for (int i = 0; i < synth_.length; ++i) {
       synth_[i] = new MidiSynthesizer(fingers, sampleRateInHz, sampleProvider);
     }
+  }
+  
+  /**
+   * return MultiChannelSynthesizer (=MidiSynthesizer[])
+   */
+  public MidiSynthesizer[] getMidiSynthesizers() {
+    return synth_;
   }
 
   /**
