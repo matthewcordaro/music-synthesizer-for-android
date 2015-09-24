@@ -80,7 +80,9 @@ ant test
 ```
 
 ## Android Native-Code Development Kit (NDK) ##
-The synthesizer engine is written in C++ for higher performance, and uses OpenSL ES to output sound. You will need to install the [Android NDK](https://developer.android.com/ndk).
+The synthesizer engine is written in C++ for higher performance, and uses OpenSL ES to output sound. You will need to install the [Android NDK](https://developer.android.com/ndk).  
+
+_Tip:_ If you save the NDK to `$HOME/android-ndk` (leaving out the version number) a future step will be easier.
 
 ### Compiling the Synthesizer Engine ###
 The result of this step is the `libsynth.so` files found in `$SYNTH_PATH/android/libs/*/` which contain any shared libraries.  A NDK build depends on the target architecture (unlike Java code). It can be changed by editing `APP\_ABI` in the `$SYNTH_PATH/android/jni/Application.mk` file. We have defaulted `APP\_ABI` to `all` so that it will run on all possible devices. However, this is at the expense of slowing the compile cycle and increasing the APK file size. If you are routinely editing code for a single device, you may want to change this to the proper architecture. See [here](https://developer.android.com/ndk/guides/arch.html) for more information. _Note:_ Code built for `armeabi` will run on _ARM v7_ devices, but more slowly.  
@@ -95,9 +97,9 @@ You can either manually run the NDK compile, or set up your Eclipse project to r
 
   - Integrated Eclipse Building 
 
-    Edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary. Example:
+    If your NDK is saved to `$HOME/android-ndk` then Eclipse will automaticall work and you can skip this step. Otherwise, edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary. Example:
     <pre>
-    ${HOME}/install/android-ndk-<b>{VERSION}</b>/ndk-build
+    ${HOME}/android-ndk-<b>{VERSION}</b>/ndk-build
     </pre>
 
 _Tip:_ If you run into any errors, try `ndk-build clean` then `ndk-build` before searching for a fix.
