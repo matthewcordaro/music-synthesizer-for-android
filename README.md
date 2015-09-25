@@ -8,11 +8,16 @@ The following steps will get you started working with the Music Synthesizer for 
 Please download and set up the Java & Android IDE & SDKs if you have not done so already.
 
 1.  [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (JDK7 recommended)
-2.  One of the following:
-   - [Eclipse IDE for Java Developers](https://eclipse.org/downloads/packages/) with the [Android Standard Development Kit Tools](https://developer.android.com/sdk/index.html#Other)  (API17 recommended)
-   - [Android Studio](https://developer.android.com/sdk/installing/index.html?pkg=studio)  _Note:_ Android Studio is not yet supported by this project. However, the core, test, and j2se packages can be built using Ant. So the desktop tools in the j2se package can still be built without Eclipse.
+2.  An IDE: (One of the following)
+  - [Eclipse for Java Developers](https://eclipse.org/downloads/packages/) with the [Android Standard Development Kit Tools](https://developer.android.com/sdk/index.html#Other)  (Newest API recommended)
+  - [Android Studio](https://developer.android.com/sdk/installing/index.html?pkg=studio)  _Note:_ Android Studio is not yet supported by this project. However, the core, test, and j2se packages can be built using Ant. So the desktop tools in the j2se package can still be built without Eclipse.   (Newest API recommended)
+3.  The [Android Native-Code Development Kit (NDK)](https://developer.android.com/ndk)
 
-3.  Debian (Ubuntu) Only
+  The synthesizer engine is written in C++ for higher performance, and uses OpenSL ES to output sound.
+  
+  _Tip:_ If you save the NDK to `$HOME/android-ndk` (leaving out the version number) a future step will be easier.
+
+4.  Debian (Ubuntu) Only
 
     With elevated privileges (`sudo`) run the following commands to download & install necessary software & libraries:
 
@@ -41,61 +46,59 @@ export PROTO_PATH=$HOME/protobuf-<b>{VERSION}</b>
 </pre>
 
 ### Debian (Ubuntu) ###
-Extract the buffers:
+1. Extract the buffers:
+  ```
+  tar -xzvf protobuf-*.tar.gz
+  ```
 
-    tar -xzvf protobuf-*.tar.gz
+2. Set your `PROTO_PATH` variable. Example:
+  <pre>
+  export PROTO_PATH=$HOME/protobuf-<b>{VERSION}</b>
+  </pre>
 
-Set your `PROTO_PATH` variable. Example:
-<pre>
-export PROTO_PATH=$HOME/protobuf-<b>{VERSION}</b>
-</pre>
+3. Build the protocol buffer binary by running the following commands:
+  ```
+  cd $PROTO_PATH
+  ./configure --prefix=$PROTO_PATH
+  make
+  make check
+  make install
+  ```
 
-Build the `protoc` compiler by running the following commands:
-```
-cd $PROTO_PATH
-./configure --prefix=$PROTO_PATH
-make
-make check
-make install
-mkdir $SYNTH_PATH/core/bin
-cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
-```
+4. Build the protocol buffer runtime library by running the following commands:
+  ```
+  cd $PROTO_PATH/java
+  mvn test
+  mvn install
+  mvn package
+  ```
 
-Build the protocol buffer runtime libraries jar by running the following commands:
-<pre>
-cd $PROTO_PATH/java
-mvn test
-mvn install
-mvn package
-mkdir $SYNTH_PATH/core/lib
-cp $PROTO_PATH/java/target/protobuf-java-<b>{VERSION}</b>.jar $SYNTH_PATH/core/lib/libprotobuf.jar
-</pre>
+5. Copy the binary and runtime library to the project folder by running the following commands:
+  <pre>
+  mkdir $SYNTH_PATH/core/bin $SYNTH_PATH/core/lib
+  cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
+  cp $PROTO_PATH/java/target/protobuf-java-<b>{VERSION}</b>.jar $SYNTH_PATH/core/lib/libprotobuf.jar
+  </pre>
 
-
-## Testing Music Synthesizer for Android core components ##
+## Test Core Components ##
 To make sure everything so far is installed correctly, run the tests and make sure they all build and pass.
 ```
 cd $SYNTH_PATH
 ant test
 ```
 
-## Android Native-Code Development Kit (NDK) ##
-The synthesizer engine is written in C++ for higher performance, and uses OpenSL ES to output sound. You will need to install the [Android NDK](https://developer.android.com/ndk).  
-
-_Tip:_ If you save the NDK to `$HOME/android-ndk` (leaving out the version number) a future step will be easier.
-
 ### Compiling the Synthesizer Engine ###
 The result of this step is the `libsynth.so` files found in `$SYNTH_PATH/android/libs/*/` which contain any shared libraries.  A NDK build depends on the target architecture (unlike Java code). It can be changed by editing `APP\_ABI` in the `$SYNTH_PATH/android/jni/Application.mk` file. We have defaulted `APP\_ABI` to `all` so that it will run on all possible devices. However, this is at the expense of slowing the compile cycle and increasing the APK file size. If you are routinely editing code for a single device, you may want to change this to the proper architecture. See [here](https://developer.android.com/ndk/guides/arch.html) for more information. _Note:_ Code built for `armeabi` will run on _ARM v7_ devices, but more slowly.  
 
 You can either manually run the NDK compile, or set up your Eclipse project to run it automatically:
-  - Manual Building 
+  - For Manual Building 
 
     Make sure that NDK folder is in your `PATH` variable and run:
 
         cd $SYNTH_PATH/android
         ndk-build
 
-  - Integrated Eclipse Building 
+  - For Integrated Eclipse Building 
 
     If your NDK is saved to `$HOME/android-ndk` then Eclipse will automaticall work and you can skip this step. Otherwise, edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary. Example:
     <pre>
@@ -122,4 +125,4 @@ Append the `export X_PATH=path/to/something` to the end of your `~/.profile`, `/
 
 _Note:_ You will probably get errors on import (duplicate entry 'src', empty ${project\_loc}, and maybe others). You can ignore these (although it would be great to clean them up).
 
-_Tip:_ If you receive many errors that state "X cannot be resolved to a type" then it is likely your NDK generated Java files are not linked properly. Go to _Project > Properties > Resource > Linked Resources_ and click on Linked Resources tab. Finally edit the core-gen variable to the following: `PROJECT_LOC/core-gen` or similar.
+_Tip:_ If you receive many errors that state "X cannot be resolved to a type" then it is likely your NDK generated Java files are not linked properly. Go to _Project > Properties > Resource > Linked Resources_ and click on Linked Resources tab. Finally edit the core-gen variable to point to `PROJECT_LOC/core-gen` or similar.
