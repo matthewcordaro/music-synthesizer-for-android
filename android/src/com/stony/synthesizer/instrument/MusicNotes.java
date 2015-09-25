@@ -37,9 +37,7 @@ public class MusicNotes {
     return played;
   }
 
-  public void setDur(int i) {
-    // TODO Auto-generated method stub
-    
+  public void setDur(int duration) {
+    dur = i
   }
-
 }
