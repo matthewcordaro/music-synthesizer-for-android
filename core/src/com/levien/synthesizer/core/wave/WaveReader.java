@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 /**
  * Reads a WAVE file from a stream and provides access its data.
  */
+@SuppressWarnings("resource")
 public class WaveReader {
   /**
    * Reads the WAVE file from a stream and stores the data in a buffer.

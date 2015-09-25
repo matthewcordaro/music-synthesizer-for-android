@@ -23,7 +23,6 @@ import java.util.PriorityQueue;
 import java.util.logging.Logger;
 
 import com.levien.synthesizer.core.midi.MidiListener;
-import com.levien.synthesizer.core.model.composite.MultiChannelSynthesizer;
 import com.levien.synthesizer.core.music.Music.Event;
 import com.levien.synthesizer.core.music.Music.Score;
 

@@ -32,18 +32,14 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
-import android.media.MediaPlayer;
-import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,7 +48,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -708,7 +703,6 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
                   getAbsolutePath()+"/here";
         File f = new File(path);     
         File file[] = f.listFiles();
-        File play = new File(path+"/"+file[position-1].getName());
         fileName = file[position-1].getName();
         fileName = fileName.substring(0, fileName.length()-4);
         notescnt=0;
@@ -753,7 +747,6 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   private MidiListener synthMidi_;
 
   private ImageButton recordBtn; // will be StopBtn
-  private Button openBtn; // open file you recorded
   private ImageButton playBtn; // play back
 
   private FileOutputStream fileout;

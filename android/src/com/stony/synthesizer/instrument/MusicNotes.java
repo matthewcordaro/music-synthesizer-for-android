@@ -38,6 +38,6 @@ public class MusicNotes {
   }
 
   public void setDur(int duration) {
-    dur = i
+    dur = duration;
   }
 }

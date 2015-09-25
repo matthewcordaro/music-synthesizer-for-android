@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.logging.Logger;
 
 import com.google.protobuf.TextFormat;
-import com.levien.synthesizer.android.service.SynthesizerService;
 import com.levien.synthesizer.core.midi.MidiAdapter;
 import com.levien.synthesizer.core.model.SignalProvider;
 import com.levien.synthesizer.core.model.SynthesisTime;

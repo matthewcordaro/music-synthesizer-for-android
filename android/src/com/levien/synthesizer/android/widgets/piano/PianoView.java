@@ -16,9 +16,6 @@
 
 package com.levien.synthesizer.android.widgets.piano;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,8 +37,6 @@ import com.levien.synthesizer.core.music.Note;
  * PianoView is a UI widget that simulates a music keyboard.
  */
 public class PianoView extends View {
-
-  private static final String FILENAME = "myRecordFile.midi";
 
   /**
    * Basic android widget constructor.

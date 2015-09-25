@@ -29,6 +29,7 @@ import com.levien.synthesizer.core.wave.RiffInputStream;
 /**
  * Reads a SoundFont file from a stream and provides access its data.
  */
+@SuppressWarnings("resource")
 public class SoundFontReader {
   /**
    * Reads the .sf2 file from a stream and stores the data in a buffer.

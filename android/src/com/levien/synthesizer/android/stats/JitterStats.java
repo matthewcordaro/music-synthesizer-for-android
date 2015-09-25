@@ -1,7 +1,5 @@
 package com.levien.synthesizer.android.stats;
 
-import android.util.Log;
-
 public class JitterStats {
   public JitterStats() {
     startTime_ = new double[N_STATS];

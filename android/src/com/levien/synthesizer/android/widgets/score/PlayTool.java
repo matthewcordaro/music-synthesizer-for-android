@@ -19,7 +19,6 @@ package com.levien.synthesizer.android.widgets.score;
 import java.util.logging.Logger;
 
 import com.levien.synthesizer.R;
-import com.levien.synthesizer.core.music.Note;
 
 import android.content.Context;
 import android.graphics.Canvas;
