@@ -44,19 +44,21 @@ Using Git, clone the Music Synthesizer for Android source code and set your `SYN
     ```
 
 3. Build the protocol buffer binary by running the following commands:
-
+    ```
     cd $PROTO_PATH
     ./configure --prefix=$PROTO_PATH
     make
     make check
     make install
+    ```
 
 4. Build the protocol buffer runtime library by running the following commands:
-
+    ```
     cd $PROTO_PATH/java
     mvn test
     mvn install
     mvn package
+    ```
 
 ## Install the Protocol Buffers ##
 ### Windows ###
@@ -65,9 +67,9 @@ Install the pre built Windows `protoc` compiler in `$SYNTH_PATH/core/bin`.
 ### Debian (Ubuntu) ###
 Copy the binary and runtime library to the project folder by running the following commands:
 ```
-  mkdir $SYNTH_PATH/core/bin $SYNTH_PATH/core/lib
-  cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
-  cp $PROTO_PATH/java/target/protobuf-java.jar $SYNTH_PATH/core/lib/libprotobuf.jar
+mkdir $SYNTH_PATH/core/bin $SYNTH_PATH/core/lib
+cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
+cp $PROTO_PATH/java/target/protobuf-java.jar $SYNTH_PATH/core/lib/libprotobuf.jar
 ```
 
 ## Test Core Components ##
