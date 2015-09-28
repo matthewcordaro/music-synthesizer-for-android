@@ -89,13 +89,13 @@ Append the `export X_PATH=path/to/something` to the end of your `~/.profile`, `/
 
 ## Compile the Synthesizer Engine ##
 Now we use the NDK to build the shared libraries. (`libsynth.so` files that will be found in `$SYNTH_PATH/android/libs/*/`.)  You can either manually run the NDK compile, or have your Eclipse project run it automatically.
-  - For automatic Eclipse building, if your NDK is saved to `$HOME/android-ndk` then Eclipse should automatically work and you can skip this step. Otherwise, edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary, such as `${HOME}/android-ndk/ndk-build`.
-
   - For manual building, make sure that the NDK folder is in your `PATH` variable and run:
     ```
     cd $SYNTH_PATH/android
     ndk-build
     ```
+
+  - For automatic Eclipse building, first run the manual build.  Then, if your NDK is saved to `$HOME/android-ndk`, Eclipse should automatically work and you can skip this step. Otherwise, edit `$SYNTH_PATH/android/.externalToolBuilders/NDK Builder.launch` to make sure that `ATTR\_LOCATION` points to a valid location for the ndk-build binary, such as `${HOME}/android-ndk/ndk-build`.
 
 _Tip:_ If you run into any errors, try `ndk-build clean` then `ndk-build` before searching for a fix.
 
@@ -103,7 +103,7 @@ _Tip:_ If you run into any errors, try `ndk-build clean` then `ndk-build` before
 1. Make a new workspace.
 2. Import the project. _File > Import > Android > Existing Android Code Into Workspace_. Follow on-screen instructions.
 
-_Tip:_ If you receive many errors that state "X cannot be resolved to a type" then it is likely your NDK generated Java files are not linked properly. Go to _Project > Properties > Resource > Linked Resources_ and click on Linked Resources tab. Finally edit the core-gen variable to point to `PROJECT_LOC/core-gen` or similar.
+_Tip:_ If you receive many errors that state "X cannot be resolved to a type" then it is likely your NDK generated Java files are not linked properly. Go to _Project > Properties > Resource > Linked Resources_ and click on Linked Resources tab. Finally edit the core-gen variable to point to `PROJECT_LOC/core-gen` or similar.  This may not solve the issue; you may need to manually build the NDK code.
 
 ##  Notes ##
 - The synthesizer engine is written in C++ for performance, and uses OpenSL ES to output sound.
