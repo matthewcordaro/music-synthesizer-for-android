@@ -1,6 +1,6 @@
 # Music Synthesizer for Android #
 ## Getting Started ##
-The following steps will get you started with Music Synthesizer for Android code in a Unix-like environment.  Read each step carefully.  Also check out the [notes section](#Notes) for further details on the project. The following environment variables are used:
+The following steps will get you started with Music Synthesizer for Android code in a Unix-like environment.  Read each step carefully.  Also check out the [notes section](#notes) for further details on the project. The following environment variables are used:
   * `SYNTH_PATH` - The folder which contains the Music Synthesizer source code.
   * `PROTO_PATH` - The folder which contains the Protocol Buffers.
 
