@@ -5,7 +5,7 @@ The following steps will get you started with Music Synthesizer for Android code
   * `PROTO_PATH` - The folder which contains the Protocol Buffers.
 
 ## Downloads ##
-The following is a list of IDEs, SDKs, libraries, other necessary software.
+The following is a list of IDEs, SDKs, libraries, other necessary software.  Download and extract them.
 
 1.  The [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html). (JDK7 recommended)
 2.  One of the following IDEs running the newest Android API.
@@ -19,11 +19,11 @@ The following is a list of IDEs, SDKs, libraries, other necessary software.
 
 5.  Debian (Ubuntu) Only
 
-    With elevated privileges (`sudo`) run the following commands to download and install necessary software and libraries:
+    Run the following commands to download and install necessary software and libraries:
 
-        dpkg --add-architecture i386
-        apt-get update
-        apt-get install lib32z1 libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 g++ maven default-jre default-jdk
+        sudo dpkg --add-architecture i386
+        sudo apt-get update
+        sudo apt-get install git lib32z1 libc6-i386 lib32stdc++6 lib32gcc1 lib32ncurses5 g++ maven default-jre default-jdk
 
 ## Clone the Code ##
 Using Git, clone the Music Synthesizer for Android source code and set your `SYNTH_PATH` variable:
@@ -33,17 +33,13 @@ Using Git, clone the Music Synthesizer for Android source code and set your `SYN
     export SYNTH_PATH=$HOME/music-synthesizer-for-android
 
 ## Make the Protocol Buffers - Debian (Ubuntu) Only ##
-1. Extract the buffers:
-    ```
-    tar -xzvf protobuf-*.tar.gz -C $HOME/protobuf
-    ```
 
-2. Set your `PROTO_PATH` variable. Example:
+1. Set your `PROTO_PATH` variable. Example:
     ```
     export PROTO_PATH=$HOME/protobuf
     ```
 
-3. Build the protocol buffer binary by running the following commands:
+2. Build the protocol buffer binary by running the following commands:
     ```
     cd $PROTO_PATH
     ./configure --prefix=$PROTO_PATH
@@ -52,7 +48,7 @@ Using Git, clone the Music Synthesizer for Android source code and set your `SYN
     make install
     ```
 
-4. Build the protocol buffer runtime library by running the following commands:
+3. Build the protocol buffer runtime library by running the following commands:
     ```
     cd $PROTO_PATH/java
     mvn test
