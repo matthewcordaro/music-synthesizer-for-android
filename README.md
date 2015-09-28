@@ -10,7 +10,7 @@ The following is a list of IDEs, SDKs, libraries, other necessary software.  Dow
 1.  The [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/index.html). (JDK7 recommended)
 2.  One of the following IDEs running the newest Android API.
 
-    - [Eclipse for Java Developers](https://eclipse.org/downloads/packages/) with the [Android Standard Development Kit Tools](https://developer.android.com/sdk/index.html#Other).
+    - [Eclipse for Java Developers](https://eclipse.org/downloads/packages/) with the [Android SDK Tools](https://developer.android.com/sdk/index.html#Other) and [Android Development Tools Plugin](http://developer.android.com/sdk/installing/installing-adt.html).
     - [Android Studio](https://developer.android.com/sdk/installing/index.html?pkg=studio) (Not yet fully supported by this project.)
 
 3.  The [Android Native-Code Development Kit (NDK)](https://developer.android.com/ndk).  _Tip:_ If you extract it to `$HOME/android-ndk` (leaving out the version number) a future step will be easier.
@@ -65,7 +65,7 @@ Copy the binary and runtime library to the project folder by running the followi
 ```
 mkdir $SYNTH_PATH/core/bin $SYNTH_PATH/core/lib
 cp $PROTO_PATH/bin/protoc $SYNTH_PATH/core/bin/
-cp $PROTO_PATH/java/target/protobuf-java.jar $SYNTH_PATH/core/lib/libprotobuf.jar
+cp $PROTO_PATH/java/target/protobuf-java-*.jar $SYNTH_PATH/core/lib/libprotobuf.jar
 ```
 
 ## Test Core Components ##
