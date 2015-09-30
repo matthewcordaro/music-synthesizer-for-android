@@ -342,7 +342,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
       if(!paused) {   
         for(int i=start_play;i<notescnt;i++)
         {
-          final int isNote = m[i].getNote();
+          final int isNote = m[i].getIsNote();
           final int channel = m[i].getChannel();
           final int note = m[i].getNote();
           final int velocity = m[i].getVelocity();
