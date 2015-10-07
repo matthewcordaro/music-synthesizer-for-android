@@ -18,6 +18,7 @@ package com.levien.synthesizer.android.ui;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import android.view.*;
 import android.annotation.SuppressLint;
@@ -113,6 +114,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
     overdriveKnob_ = (KnobView)findViewById(R.id.overdriveKnob);
     presetSpinner_ = (Spinner)findViewById(R.id.presetSpinner);
     filelist_ = (Spinner)findViewById(R.id.filelist);
+    tvTimer_ = (TextView)findViewById(R.id.record_timer);
     keyboard_.setKeyboardViewListener(new KeyboardViewListener(){
       public void noteDown(int channel, int note, int velocity) {
         if(recordBtnIsActive) { // record
@@ -152,6 +154,27 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         if (wannaRecord)  {
           recordBtn.setImageResource(R.drawable.stopnew);
           openFile(); // open file to write file.
+          tvTimer_.setText(recordTime);
+          t = new Timer();
+          t.scheduleAtFixedRate(new TimerTask() {
+
+              @Override
+              public void run() {
+                  // TODO Auto-generated method stub
+                  runOnUiThread(new Runnable() {
+                      public void run() {
+                        long hours = TimeCounter / 3600;
+                        long minutes = (TimeCounter % 3600) / 60;
+                        long seconds = TimeCounter % 60;
+
+                        recordTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                          tvTimer_.setText(recordTime); // you can set it to a textView to show it to the user to see the time passing while he is writing.
+                          TimeCounter++;
+                      }
+                  });
+
+              }
+          }, 1000, 1000);
           wannaRecord = false;  // next time, this button will stop recording.
           recordBtnIsActive = true; // if you press keyboard, will record.
           Toast.makeText(getApplicationContext(), "Start Recording", Toast.LENGTH_SHORT).show();
@@ -163,6 +186,10 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
           
         }
         else  { // want to stop recording
+          t.cancel();
+          TimeCounter = 0;
+          recordTime = "00:00:00";
+          tvTimer_.setText("");
           nameDialog();
           recordBtn.setImageResource(R.drawable.recordnew);
           DataOutputStream dos = new DataOutputStream(fileout);
@@ -743,12 +770,13 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   private PendingIntent permissionIntent_;
   private boolean permissionRequestPending_;
   private UsbDevice usbDevicePending_;
-
+  
   private MidiListener synthMidi_;
 
   private ImageButton recordBtn; // will be StopBtn
   private ImageButton playBtn; // play back
-
+  private TextView tvTimer_;
+  
   private FileOutputStream fileout;
   private FileInputStream filein;
   private File file;
@@ -779,6 +807,10 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   Runnable stlist[]= new Runnable[100];
   long notescnt;
 
+  private Timer t;
+  private int TimeCounter = 0;
+  private String recordTime = "00:00:00";
+  
   public void onClick(View v) {
     // TODO Auto-generated method stub
   }
