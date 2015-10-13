@@ -1,3 +1,4 @@
+
 /*
  * Copyright 2012 Google Inc.
  *
@@ -112,6 +113,12 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
     resonanceKnob_ = (KnobView)findViewById(R.id.resonanceKnob);
     overdriveKnob_ = (KnobView)findViewById(R.id.overdriveKnob);
     presetSpinner_ = (Spinner)findViewById(R.id.presetSpinner);
+    channelSpinner_=(Spinner)findViewById(R.id.channelSelector);
+    //For keyboardview.java
+    keyboard_.setChannelSpinnner(channelSpinner_);
+    
+    
+    
     filelist_ = (Spinner)findViewById(R.id.filelist);
     keyboard_.setKeyboardViewListener(new KeyboardViewListener(){
       public void noteDown(int channel, int note, int velocity) {
@@ -619,7 +626,27 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         });
       }
     });
-
+    
+    //Set adapter for populating channel selection spinner with channel names
+    ArrayAdapter<CharSequence> channelAdapter = ArrayAdapter.createFromResource(this,
+            R.array.channels_array, android.R.layout.simple_spinner_item);
+    // Specify the layout to use when the list of choices appears
+    channelAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+    // Apply the adapter to the spinner
+    channelSpinner_.setAdapter(channelAdapter);
+    
+    //Set listener on Channel Spinner
+    channelSpinner_.setOnItemSelectedListener(new OnItemSelectedListener() {
+      
+      public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        //What to do here?
+      }
+      public void onNothingSelected(AdapterView<?> parent) {
+      }
+      
+    });
+    
+    
     // Populate patch names (note: we could update an existing list rather than
     // creating a new adapter, but it probably wouldn't save all that much).
     if (presetSpinner_.getAdapter() == null) {
@@ -739,6 +766,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   private KnobView resonanceKnob_;
   private KnobView overdriveKnob_;
   private Spinner presetSpinner_;
+  private Spinner channelSpinner_;
   private Spinner filelist_;
   private PendingIntent permissionIntent_;
   private boolean permissionRequestPending_;

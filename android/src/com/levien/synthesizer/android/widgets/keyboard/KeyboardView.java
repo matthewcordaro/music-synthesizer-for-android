@@ -26,11 +26,14 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Spinner;
 
 import com.levien.synthesizer.core.midi.MidiListener;
+import com.levien.synthesizer.R;
 
 public class KeyboardView extends View {
   KeyboardViewListener keyboardViewListener;
+  Spinner channelSpinner;
   
   public KeyboardView(Context context, AttributeSet attrs) {
     super(context, attrs);
@@ -56,7 +59,16 @@ public class KeyboardView extends View {
     velSens_ = 0.5f;
     velAvg_ = 64;
   }
-
+  
+  public void setChannelSpinnner(Spinner spinner){
+    this.channelSpinner = spinner;
+  }
+  
+  public int getChannelNumber(){
+    String channelNumText[] = channelSpinner.getSelectedItem().toString().split(" ");    
+    return Integer.parseInt(channelNumText[1]);
+  }
+  
   public void setKeyboardSpec(KeyboardSpec keyboardSpec) {
     keyboardSpec_ = keyboardSpec;
     keyboardScale_ = zoom_ / keyboardSpec_.repeatWidth * keyboardSpec_.keys.length / nKeys_;
@@ -224,14 +236,15 @@ public class KeyboardView extends View {
   }
 
   private boolean onTouchDown(int id, float x, float y, float pressure) {
+    int channel = getChannelNumber();
     int note = hitTest(x, y);
     if (note >= 0 && noteStatus_[note] == 0) {
       int velocity = computeVelocity(pressure);
       noteForFinger_[id] = note;
       noteStatus_[note] = (byte)velocity;
       if (midiListener_ != null) {
-        midiListener_.onNoteOn(0, note, velocity);
-        keyboardViewListener.noteDown(0, note, velocity);
+        midiListener_.onNoteOn(channel, note, velocity);
+        keyboardViewListener.noteDown(channel, note, velocity);
       }
       return true;
     }
@@ -239,12 +252,15 @@ public class KeyboardView extends View {
   }
 
   private boolean onTouchUp(int id, float x, float y, float pressure) {
+   
+    int channel = getChannelNumber();
+    
     int note = noteForFinger_[id];
     if (note >= 0) {
       int velocity = noteStatus_[note];
       if (midiListener_ != null) {
-        midiListener_.onNoteOff(0, note, velocity);
-        keyboardViewListener.noteUp(0,note);
+        midiListener_.onNoteOff(channel, note, velocity);
+        keyboardViewListener.noteUp(channel,note);
       }
       noteForFinger_[id] = -1;
       noteStatus_[note] = 0;
@@ -254,6 +270,7 @@ public class KeyboardView extends View {
   }
 
   private boolean onTouchMove(int id, float x, float y, float pressure) {
+    int channel = getChannelNumber();
     int oldNote = noteForFinger_[id];
     int newNote = hitTest(x, y);
     if (newNote != -1 && newNote != oldNote && noteStatus_[newNote] == 0) {
@@ -261,10 +278,10 @@ public class KeyboardView extends View {
       if (oldNote >= 0) {
         int velocity = noteStatus_[oldNote];
         if (midiListener_ != null) {
-          midiListener_.onNoteOff(0, oldNote, velocity);
-          midiListener_.onNoteOn(0, newNote, velocity);
-          keyboardViewListener.noteUp(0, oldNote);
-          keyboardViewListener.noteDown(0, newNote, velocity);
+          midiListener_.onNoteOff(channel, oldNote, velocity);
+          midiListener_.onNoteOn(channel, newNote, velocity);
+          keyboardViewListener.noteUp(channel, oldNote);
+          keyboardViewListener.noteDown(channel, newNote, velocity);
         }
         noteForFinger_[id] = newNote;
         noteStatus_[oldNote] = 0;
@@ -273,7 +290,7 @@ public class KeyboardView extends View {
         // moving onto active note from dead zone
         int velocity = 64;
         if (midiListener_ != null) {
-          midiListener_.onNoteOn(0, newNote, velocity);
+          midiListener_.onNoteOn(channel, newNote, velocity);
         }
         noteForFinger_[id] = newNote;
         noteStatus_[newNote] = (byte)velocity;
