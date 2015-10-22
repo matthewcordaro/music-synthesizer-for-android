@@ -130,6 +130,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
           writeFile(channel,0);
           writeFile(note,0);
           writeFile(velocity,0);
+          writeFile(getPresetNumber(),0);
         }
       }
       public void noteUp(int channel, int note) {
@@ -142,6 +143,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
           writeFile(channel,0);
           writeFile(note,0);
           writeFile(0,0); // we don't care
+          writeFile(getPresetNumber(),0);
         }
       }
     });
@@ -193,18 +195,24 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
     playBtn.setOnClickListener(new OnClickListener() {
 
       public void onClick(View v) {
+        Log.wtf(tag, "In click listener:");
+        printFlags();
+        /*
         if((notescnt-1) == start_play || notescnt == start_play)
         {
           start_play = 1;
-          keyboard_.onNote(m[0].getNote(), m[0].getVelocity());
-          synthMidi_.onNoteOn(m[0].getChannel(), m[0].getNote(), m[0].getVelocity());
+          keyboard_.onNote(m.get(0).getNote(), m.get(0).getVelocity());
+          synthMidi_.onNoteOn(m.get(0).getChannel(), m.get(0).getNote(), m.get(0).getVelocity());
           first_current_time = getCurrentTimeMilli();
-          opennotes.put(m[0].getNote(), m[0].getVelocity());
+          ArrayList<Integer> temp = new ArrayList<Integer>();
+          temp.add(m.get(0).getVelocity());
+          temp.add(m.get(0).getInstrument());
+          opennotes.put(m.get(0).getNote(), temp);
           clicked = true;
           readFile();
           
-        }  
-        else if(clicked)
+        } */ 
+        if(clicked)
         {
           paused=true;
           resumed = false;
@@ -214,11 +222,14 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         else if(paused)
         {
           resumed = true;
-          paused = false;
           clicked = true;
           readFile();
         }
         else if (!recordBtnIsActive)  {
+          if((notescnt-1) == start_play || notescnt == start_play)
+          {
+            start_play = 1;
+          }
           // open file, look at first time.
           // openBtnWasPressed = true; for playBtn's working
           try {
@@ -240,10 +251,14 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
               synthMidi_ = synthesizerService_.getMidiListener();
               keyboard_.setMidiListener(synthMidi_);
               copyFile();
-              keyboard_.onNote(m[0].getNote(), m[0].getVelocity());
-              synthMidi_.onNoteOn(m[0].getChannel(), m[0].getNote(), m[0].getVelocity());
+              keyboard_.onNote(m.get(0).getNote(), m.get(0).getVelocity());
+              synthMidi_.onNoteOn(m.get(0).getChannel(), m.get(0).getNote(), m.get(0).getVelocity());
               first_current_time = getCurrentTimeMilli();
-              opennotes.put(m[0].getNote(), m[0].getVelocity());
+              ArrayList<Integer> temp = new ArrayList<Integer>();
+              temp.add(m.get(0).getVelocity());
+              temp.add(m.get(0).getInstrument());
+              opennotes.put(m.get(0).getNote(), temp);
+              opennotes.put(m.get(0).getNote(), temp);
               clicked = true;
               readFile();
             }
@@ -343,32 +358,47 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
     } 
   }
 
-  static HashMap<Integer,Integer> opennotes = new HashMap<Integer,Integer>();
+  static HashMap<Integer,ArrayList<Integer>> opennotes = new HashMap<Integer, ArrayList<Integer>>();
   protected void readFile(){
     try {
+      Log.wtf(tag, "In readFile: ");
+      printFlags();
       if(!paused) {   
+        Log.wtf(tag, "Inside not paused:");
+        printOpenNotes();
         for(int i=start_play;i<notescnt;i++)
         {
-          final int isNote = m[i].getIsNote();
-          final int channel = m[i].getChannel();
-          final int note = m[i].getNote();
-          final int velocity = m[i].getVelocity();
+          final int isNote = m.get(i).getIsNote();
+          final int channel = m.get(i).getChannel();
+          final int note = m.get(i).getNote();
+          final int velocity = m.get(i).getVelocity();
+          final int instrument = m.get(i).getInstrument();
           r = new Runnable() {
             public void run() {
+              //Log.wtf(tag, "start play:"+start_play+" notescnt: "+notescnt);
               if(isNote==9)
               {
-              keyboard_.onNote(note, velocity);
-              synthMidi_.onNoteOn(channel, note, velocity);
-              opennotes.put(note,velocity);
+                synthesizerService_.getMidiListener().onProgramChange(getChannelNumber(), instrument);  
+                keyboard_.onNote(note, velocity);
+                synthMidi_.onNoteOn(channel, note, velocity);
+                
+                ArrayList<Integer> temp = new ArrayList<Integer>();
+                temp.add(velocity);
+                temp.add(instrument);
+                opennotes.put(note, temp);
               }
               else
               {
+                synthesizerService_.getMidiListener().onProgramChange(getChannelNumber(), instrument);
                 keyboard_.onNote(note, velocity);
                 synthMidi_.onNoteOff(channel, note, velocity);
                 opennotes.remove(note);              
+                
+                
                 for(int i=start_play;i<notescnt;i++)
                 {
-                  if(m[i].getNote()==note && m[i]!=null)
+                 
+                  if(m.get(i).getNote()==note && m.get(i)!=null)
                   {
                     start_play=i+1;
                     break;
@@ -377,35 +407,47 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
               }
             }
           };
-          handler.postDelayed(r, m[i].getDur());
+          handler.postDelayed(r, m.get(i).getDur());
         }
       }
-      else if(paused)
+      else if(paused && !resumed)
       {
+        Log.wtf(tag, "Inside paused:");
+        printOpenNotes();
         long paused_time = getCurrentTimeMilli();
         handler.removeCallbacksAndMessages(null);
         Iterator it = opennotes.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            keyboard_.onNote((Integer)pair.getKey(), (Integer)pair.getValue());
-            synthMidi_.onNoteOff(0, (Integer)pair.getKey(), (Integer)pair.getValue());
+            ArrayList<Integer> temp = (ArrayList<Integer>)pair.getValue();
+            
+            keyboard_.onNote((Integer)pair.getKey(), temp.get(0));
+            synthMidi_.onNoteOff(0, (Integer)pair.getKey(), temp.get(0));
             it.remove(); // avoids a ConcurrentModificationException
         }
+        
+        
         for(int i=start_play;i<notescnt;i++) {
-          m[i].setDur(m[i].getDur() - (int)(paused_time - first_current_time));
+          m.get(i).setDur(m.get(i).getDur() - (int)(paused_time - first_current_time));
         }
+        Log.wtf(tag, "Inside paused after duration change:");
+        printOpenNotes();
       }
       else if(resumed)
       {
+        Log.wtf(tag, "Inside resumed:");
+        printOpenNotes();
         first_current_time = getCurrentTimeMilli();
         Iterator it = opennotes.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();          
-            keyboard_.onNote((Integer)pair.getKey(), (Integer)pair.getValue());
-            synthMidi_.onNoteOn(0, (Integer)pair.getKey(), (Integer)pair.getValue());
+            ArrayList<Integer> temp = (ArrayList<Integer>)pair.getValue();
+            keyboard_.onNote((Integer)pair.getKey(), temp.get(0));
+            synthMidi_.onNoteOn(temp.get(1), (Integer)pair.getKey(), temp.get(0));
             it.remove(); // avoids a ConcurrentModificationException
         }
         clicked = true;
+        paused = false;
         resumed = false;
         readFile();
       }
@@ -429,10 +471,10 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         final int isNote = dis.readInt();
         final int channel = dis.readInt();
         final int note = dis.readInt();
-        final int velocity = dis.readInt();        
+        final int velocity = dis.readInt();   
+        final int instrument = dis.readInt();
         long dur = time - first_pressed_time;
-        m[cnt] = new MusicNotes();
-        m[cnt].addNote(note, channel, velocity, isNote, (int)dur, 0);
+        m.add(new MusicNotes(note, channel, velocity, isNote, (int)dur, 0, instrument));
         time = dis.readLong(); 
         cnt++;
         }
@@ -442,6 +484,27 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
       e.printStackTrace();
     }
     notescnt = cnt;
+  }
+  
+  public int getChannelNumber(){
+    String channelNumText[] = channelSpinner_.getSelectedItem().toString().split(" ");    
+    return Integer.parseInt(channelNumText[1]);
+  }
+  
+  
+  public void printOpenNotes(){
+    
+    Log.wtf(tag, "Printing Open Notes from start_play:"+start_play);
+    for(int i=start_play; i<m.size();i++)
+      Log.wtf(tag, m.get(i).toString());
+  }
+  
+  public void printFlags(){
+    Log.wtf(tag, "Clicked: "+clicked+" paused: "+paused+" resumed: "+resumed+" start play: "+start_play);
+  }
+  
+  public int getPresetNumber(){
+    return presetSpinner_.getSelectedItemPosition();
   }
 
   protected void closeFile()  {
@@ -662,7 +725,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
 
     presetSpinner_.setOnItemSelectedListener(new OnItemSelectedListener() {
       public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        synthesizerService_.getMidiListener().onProgramChange(0, position);
+        synthesizerService_.getMidiListener().onProgramChange(getChannelNumber(), position);
       }
       public void onNothingSelected(AdapterView<?> parent) {
       }
@@ -800,9 +863,10 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   long pressedTimeSave;
   Handler handler = new Handler();
   private String fileName = "apple"; // default
-  static MusicNotes m[] = new MusicNotes[100];
+  ArrayList<MusicNotes> m = new ArrayList<MusicNotes>();
   static int start_play=1;
   static long first_current_time=0;
+  static final String tag = "pianoactivity2";
   
   Runnable stlist[]= new Runnable[100];
   long notescnt;

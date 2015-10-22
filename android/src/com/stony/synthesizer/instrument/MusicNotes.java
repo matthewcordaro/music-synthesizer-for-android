@@ -2,10 +2,10 @@ package com.stony.synthesizer.instrument;
 
 public class MusicNotes {
   
-  int note, channel, velocity, isNote;
+  int note, channel, velocity, isNote, instrument;
   private int dur;
   long st, played;
-  public void addNote(int n, int c, int v, int is, int d, int s)
+  public MusicNotes(int n, int c, int v, int is, int d, int s, int i)
   {
     note = n;
     channel = c;
@@ -13,6 +13,7 @@ public class MusicNotes {
     isNote = is;
     dur=d;
     st = s;
+    instrument = i;
   }
 
   public int getNote() {
@@ -39,5 +40,17 @@ public class MusicNotes {
 
   public void setDur(int duration) {
     dur = duration;
+  }
+  
+  public int getInstrument() {
+    return instrument;
+  }
+  
+  public void setInstrument(int instrument) {
+    this.instrument = instrument;
+  }
+  
+  public String toString(){    
+    return "Note: "+note+" Channel"+channel+" Instrument: "+instrument+" Duration: "+dur;
   }
 }
