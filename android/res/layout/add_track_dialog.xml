@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    
+    <EditText
+        android:id="@+id/trackName"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/trackname" />
+
+    <Spinner 
+	    android:id="@+id/channelSelector"
+	    android:layout_width="130dp"
+	    android:layout_height="wrap_content"
+	    android:entries="@array/channels_array" />
+    
+	<Spinner
+        android:id="@+id/presetSpinner"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+         android:entries="@array/channels_array"
+         />    
+			    
+    <ToggleButton
+        android:id="@+id/on_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+        <Button  
+            android:id="@+id/cancelButton"
+         android:layout_height="wrap_content"
+	     android:layout_width="wrap_content"
+	     android:text="@string/cancel_button"/>
+        
+        <Button  
+            android:id="@+id/saveButton"
+         android:layout_height="wrap_content"
+	     android:layout_width="wrap_content"
+	     android:text="@string/save_button"/>
+        
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+ 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar"
+ 
+        ></include>
+ 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/frameLayout">
+        <ImageButton
+            android:layout_margin="15dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/eighth_note"
+            android:background="@drawable/circle"
+            android:id="@+id/imageButton"
+            android:layout_gravity="right|bottom" />
+
+        <TableLayout
+            android:id="@+id/track_editor_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center" >
+
+            <TableRow
+                android:id="@+id/trackcolumns"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/trackname" 
+                    style="@style/trackFont"
+                    android:background="@drawable/tableborder"/>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/channel" 
+                    style="@style/trackFont"
+                    android:background="@drawable/tableborder"/>
+
+                <TextView
+                    android:padding="3dip"
+                    android:text="@string/instrument" 
+                    style="@style/trackFont"
+                    android:background="@drawable/tableborder"/>
+
+                <TextView
+                    android:gravity="end"
+                    android:padding="3dip"
+                    android:text="@string/onoff" 
+                    style="@style/trackFont"
+                    android:background="@drawable/tableborder"/>
+            </TableRow>
+
+        </TableLayout>
+        
+    </FrameLayout>
+</RelativeLayout>
+

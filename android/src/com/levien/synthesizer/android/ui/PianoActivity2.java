@@ -114,6 +114,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
     overdriveKnob_ = (KnobView)findViewById(R.id.overdriveKnob);
     presetSpinner_ = (Spinner)findViewById(R.id.presetSpinner);
     channelSpinner_=(Spinner)findViewById(R.id.channelSelector);
+    tvTimer_ = (TextView)findViewById(R.id.record_timer);
     //For keyboardview.java
     keyboard_.setChannelSpinnner(channelSpinner_);
     
@@ -161,6 +162,30 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         if (wannaRecord)  {
           recordBtn.setImageResource(R.drawable.stopnew);
           openFile(); // open file to write file.
+          tvTimer_.setText(recordTime);
+          t = new Timer();
+          t.scheduleAtFixedRate(new TimerTask() {
+
+              @Override
+              public void run() {
+                  // TODO Auto-generated method stub
+                  runOnUiThread(new Runnable() {
+                      public void run() {
+                        long hours = TimeCounter / 3600;
+                        long minutes = (TimeCounter % 3600) / 60;
+                        long seconds = TimeCounter % 60;
+
+                        recordTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                          tvTimer_.setText(recordTime); // you can set it to a textView to show it to the user to see the time passing while he is writing.
+                          TimeCounter++;
+                      }
+                  });
+
+              }
+          }, 0, 1000);
+
+          
+          
           wannaRecord = false;  // next time, this button will stop recording.
           recordBtnIsActive = true; // if you press keyboard, will record.
           Toast.makeText(getApplicationContext(), "Start Recording", Toast.LENGTH_SHORT).show();
@@ -172,12 +197,18 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
           
         }
         else  { // want to stop recording
+          t.cancel();
+          TimeCounter = 0;
+          tvTimer_.setText(recordTime);
+          recordTime = "00:00:00";
+
           nameDialog();
           recordBtn.setImageResource(R.drawable.recordnew);
           DataOutputStream dos = new DataOutputStream(fileout);
 
           try {
             dos.writeLong(0); // It means deadLine for file.
+            dos.writeLong(getCurrentTimeMilli() - startRecording_ms);
           } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -409,6 +440,34 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
           };
           handler.postDelayed(r, m.get(i).getDur());
         }
+        tvTimer_.setText(recordTime);
+        t = new Timer();
+        t.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                      long hours = TimeCounter / 3600;
+                      long minutes = (TimeCounter % 3600) / 60;
+                      long seconds = TimeCounter % 60;
+
+                      recordTime = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                        tvTimer_.setText(recordTime); // you can set it to a textView to show it to the user to see the time passing while he is writing.
+                        TimeCounter++;
+                        
+                        if (TimeCounter*1000 >= totalRecordTime) {
+                          t.cancel();
+                          TimeCounter = 0;
+                        }
+                        
+                    }
+                });
+
+            }
+        }, 0, 1000);
+       
+        
       }
       else if(paused && !resumed)
       {
@@ -432,6 +491,11 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         }
         Log.wtf(tag, "Inside paused after duration change:");
         printOpenNotes();
+        
+        t.cancel();
+        tvTimer_.setText(recordTime);
+        
+        
       }
       else if(resumed)
       {
@@ -478,6 +542,8 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
         time = dis.readLong(); 
         cnt++;
         }
+      totalRecordTime = dis.readLong();
+      
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
@@ -831,6 +897,7 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   private Spinner presetSpinner_;
   private Spinner channelSpinner_;
   private Spinner filelist_;
+  private TextView tvTimer_;
   private PendingIntent permissionIntent_;
   private boolean permissionRequestPending_;
   private UsbDevice usbDevicePending_;
@@ -867,6 +934,11 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
   static int start_play=1;
   static long first_current_time=0;
   static final String tag = "pianoactivity2";
+  
+  private Timer t;
+  private int TimeCounter = 0;
+  private String recordTime = "00:00:00";
+  private long totalRecordTime = 0;
   
   Runnable stlist[]= new Runnable[100];
   long notescnt;

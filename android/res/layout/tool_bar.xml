@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+ 
+<android.widget.Toolbar
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:elevation="2dp"
+    android:theme="@style/LightThemeSelector"
+    android:background="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/track_editor"
+        android:layout_gravity="start"
+        android:id="@+id/toolbar_title" />
+    </android.widget.Toolbar>

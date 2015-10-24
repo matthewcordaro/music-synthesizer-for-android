@@ -4,4 +4,6 @@
      <color name="blue">#00f</color>
      <color name="red">#f00</color>
      <color name="yellow">#FFFF00</color>
+     <color name="colorPrimary">#FF5722</color>
+     <color name="colorPrimaryDark">#E64A19</color>
 </resources>

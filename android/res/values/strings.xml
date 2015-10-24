@@ -124,5 +124,12 @@
         <item>Channel 14</item>
         <item>Channel 15</item>
     </string-array>
+  <string name="track_editor">Track Editor</string>
+  <string name="trackname">Track Name</string>
+  <string name="channel">Channel</string>
+  <string name="instrument">Instrument</string>
+  <string name="onoff">On/Off</string>
+  <string name="save_button">Save</string>
+  <string name="cancel_button">Cancel</string>
 </resources>
 
