@@ -17,7 +17,7 @@
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/LightThemeSelector" >
+        android:theme="@style/NoActionBarTheme" >
         <activity
             android:name="com.levien.synthesizer.android.ui.IntroActivity"
             android:label="@string/app_name"
@@ -106,6 +106,18 @@
             android:label="@string/app_name"
             android:screenOrientation="sensorLandscape"
             android:theme="@android:style/Theme.Light.NoTitleBar" />
+        
+        <activity
+            android:name="com.levien.synthesizer.android.ui.DesignTestActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar" />
+        
+        <activity
+            android:name="com.levien.synthesizer.android.ui.TempActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/NoActionBarTheme" />
         
         <service android:name=".android.service.SynthesizerService" >
         </service>

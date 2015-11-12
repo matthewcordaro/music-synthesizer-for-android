@@ -131,5 +131,9 @@
   <string name="onoff">On/Off</string>
   <string name="save_button">Save</string>
   <string name="cancel_button">Cancel</string>
+  <string name="guitar">GUITAR</string>
+  <string name="delete">Delete</string>
+  <string name="play_selected">Play Selected</string>
+  
 </resources>
 

@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--main.xml-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff">
+    
+    <android.support.v7.widget.Toolbar
+	   xmlns:android="http://schemas.android.com/apk/res/android"   
+	   xmlns:app="http://schemas.android.com/apk/res-auto" 
+	   android:id="@+id/my_toolbar"
+	   android:layout_width="match_parent"
+	   android:layout_height="@dimen/abc_action_bar_default_height_material"
+	   android:background="#94090D"
+	   android:elevation="4dp"
+	   android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+	   app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+		    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/track_editor"
+	        android:textSize="20sp"
+	        android:textColor="#FFFFFF"
+	        android:textStyle="bold"
+            android:typeface="serif"
+	        android:id="@+id/toolbar_title" />
+        </android.support.v7.widget.Toolbar>
+        
+    <!--<TextView
+            android:text="@string/track_editor"
+            android:textColor="#ffffff"
+            android:gravity="center_vertical|center_horizontal"
+            android:textSize="26sp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:background="#94090D"
+            android:typeface="sans"/> -->
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D40D12">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:orientation="horizontal"
+            android:weightSum="4">
+            
+            <TextView
+                android:id="@+id/tv_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:text="@string/trackname"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:typeface="serif" >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|start"
+            android:text="@string/channel"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="serif" >
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical|start"
+            android:text="@string/instrument"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:typeface="serif" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:text="@string/onoff"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:typeface="serif" />
+        </LinearLayout>
+        
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ListView
+        android:id="@+id/listview"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_marginStart="15dp"
+        android:dividerHeight="12dp"
+        android:divider="#FFFFFF"
+        android:cacheColorHint="#00000000">
+    </ListView>
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        fab:fab_icon="@drawable/eighth_note"
+        fab:fab_colorNormal="@color/pink"
+        fab:fab_colorPressed="@color/pink_pressed"
+        fab:fab_addButtonColorNormal="@color/white"
+        fab:fab_addButtonColorPressed="@color/white_pressed"
+        fab:fab_addButtonPlusIconColor="@color/half_black"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/plusnew"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_title="Add Track"
+            fab:fab_size="mini"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/add_guitar"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_title="Guitar"
+            fab:fab_size="mini"
+            fab:fab_colorPressed="@color/white_pressed"/>
+
+         <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/action_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_icon="@drawable/add_violin"
+            fab:fab_colorNormal="@color/white"
+            fab:fab_title="Violin"
+            fab:fab_size="mini"
+            fab:fab_colorPressed="@color/white_pressed"/>
+         
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    </RelativeLayout>
+</LinearLayout>

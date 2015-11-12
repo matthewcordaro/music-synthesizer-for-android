@@ -1,30 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/trackEditorLayout"
+    android:background="#131113"
+    tools:context=".TableActivity">
  
     <include
         android:id="@+id/toolbar"
-        layout="@layout/tool_bar"
- 
-        ></include>
- 
-    <FrameLayout
+        layout="@layout/tool_bar"></include>
+   <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:id="@+id/frameLayout">
-        <ImageButton
-            android:layout_margin="15dp"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@drawable/eighth_note"
-            android:background="@drawable/circle"
-            android:id="@+id/imageButton"
-            android:layout_gravity="right|bottom" />
 
         <TableLayout
             android:id="@+id/track_editor_table"
@@ -32,7 +23,9 @@
             android:layout_height="match_parent"
             android:layout_marginTop="40dp"
             android:layout_marginStart="5dp"
-            android:layout_gravity="center" >
+            android:layout_marginEnd="5dp"
+            android:layout_gravity="center"
+            android:stretchColumns="0,1,2,3" >
 
             <TableRow
                 android:id="@+id/trackcolumns"
@@ -40,25 +33,32 @@
                 android:layout_height="wrap_content" >
 
                 <TextView
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:text="@string/trackname" 
                     style="@style/trackFont"
                     android:background="@drawable/tableborder"/>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:text="@string/channel" 
                     style="@style/trackFont"
                     android:background="@drawable/tableborder"/>
 
                 <TextView
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:text="@string/instrument" 
                     style="@style/trackFont"
                     android:background="@drawable/tableborder"/>
 
                 <TextView
-                    android:gravity="end"
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
                     android:padding="3dip"
                     android:text="@string/onoff" 
                     style="@style/trackFont"
@@ -66,7 +66,72 @@
             </TableRow>
 
         </TableLayout>
-        
+        <LinearLayout
+            android:layout_width="match_parent"
+        	android:layout_height="match_parent"
+        	android:gravity="end"
+            android:orientation="horizontal">
+            <TextView
+                    android:layout_width="wrap_content"
+                	android:layout_height="wrap_content"
+                	android:layout_marginBottom="15dp"
+                    android:text="@string/track_editor"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="end|bottom"
+                    style="@style/trackFont"/>
+            <ImageButton
+	            android:layout_marginEnd="15dp"
+	            android:layout_marginBottom="15dp"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:src="@drawable/track_options"
+	            android:background="@drawable/circle"
+	            android:id="@+id/imageButton"
+	            android:layout_gravity="end|bottom" />
+        </LinearLayout>
+	    
     </FrameLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+		android:visibility="gone"
+        android:id="@+id/hiddenLayout">
+           <ImageButton
+				    android:layout_marginEnd="15dp"
+				    android:layout_marginTop="70dp"
+				    android:layout_width="50dp"
+				    android:layout_height="50dp"
+				    android:src="@drawable/add_guitar"
+				    android:background="@drawable/circle"
+				    android:id="@+id/image1"
+			        android:layout_gravity="end" />
+	        <ImageButton
+	            android:layout_marginEnd="15dp"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:src="@drawable/add_violin"
+	            android:background="@drawable/circle"
+	            android:id="@+id/image2"
+	            android:layout_gravity="end" />
+	        <ImageButton
+	            android:layout_marginEnd="15dp"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:src="@drawable/add_drums"
+	            android:background="@drawable/circle"
+	            android:id="@+id/image3"
+	            android:layout_gravity="end" />
+	        <ImageButton
+	            android:layout_marginEnd="15dp"
+	            android:layout_width="50dp"
+	            android:layout_height="50dp"
+	            android:src="@drawable/add_track"
+	            android:background="@drawable/circle"
+	            android:id="@+id/image4"
+	            android:layout_gravity="end" />
+     </LinearLayout>
+    
 </RelativeLayout>
 

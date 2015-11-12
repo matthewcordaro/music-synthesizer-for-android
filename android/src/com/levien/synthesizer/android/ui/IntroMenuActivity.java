@@ -60,7 +60,7 @@ public class IntroMenuActivity extends Activity {
         //          Intent intent = new Intent(IntroMenuActivity.this, ScoreActivity.class);
         //          startActivity(intent);
         //          Toast.makeText(getApplicationContext(), "We are preparing", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(IntroMenuActivity.this, TrackEditorActivity.class);
+        Intent intent = new Intent(IntroMenuActivity.this, TempActivity.class);
         startActivity(intent);
         //listdialog();
 

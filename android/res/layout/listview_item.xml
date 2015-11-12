@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/activatedBackgroundIndicator" >
+    
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
+	    <TextView
+	        android:id="@+id/trackname"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|start" />
+	
+	    <TextView
+	        android:id="@+id/channel"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|start" />
+	
+	    <TextView
+	        android:id="@+id/instrument"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|start" />
+	
+	    <TextView
+	        android:id="@+id/onoff"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:gravity="center_vertical|start" />
+	</LinearLayout>
+</RelativeLayout>

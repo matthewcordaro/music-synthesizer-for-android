@@ -1,13 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?><LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
-    
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool_bar"></include>
+
     <EditText
         android:id="@+id/trackName"
-        android:inputType="textEmailAddress"
+        android:inputType="textCapSentences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -26,31 +34,32 @@
         android:id="@+id/presetSpinner"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-         android:entries="@array/channels_array"
-         />    
+        android:entries="@array/channels_array" />    
 			    
     <ToggleButton
         android:id="@+id/on_off"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     
-    <LinearLayout android:orientation="horizontal"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
         
-        <Button  
-            android:id="@+id/cancelButton"
-         android:layout_height="wrap_content"
-	     android:layout_width="wrap_content"
-	     android:text="@string/cancel_button"/>
+        <Button
+	        android:id="@+id/cancelButton"
+	        android:layout_height="wrap_content"
+	        android:layout_width="150dp"
+	        android:text="@string/cancel_button"/>
         
-        <Button  
-            android:id="@+id/saveButton"
-         android:layout_height="wrap_content"
-	     android:layout_width="wrap_content"
-	     android:text="@string/save_button"/>
+        <Button
+	         android:id="@+id/saveButton"
+	         android:layout_height="wrap_content"
+		     android:layout_width="150dp"
+		     android:text="@string/save_button"/>
         
     </LinearLayout>
 
 </LinearLayout>
-
+</ScrollView>
