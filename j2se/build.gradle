@@ -1,0 +1,13 @@
+apply plugin: 'java'
+
+sourceSets {
+    main.java.srcDirs = ['src']
+}
+
+dependencies {
+    compile project(':core')
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}

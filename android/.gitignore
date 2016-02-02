@@ -1,3 +1,4 @@
 # Android NDK output files
 obj/**
 libs/**
+build/**
