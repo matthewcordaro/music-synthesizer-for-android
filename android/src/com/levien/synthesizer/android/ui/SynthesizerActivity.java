@@ -155,21 +155,21 @@ public abstract class SynthesizerActivity extends Activity {
   
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.piano:
-        this.startActivity(new Intent(this, PianoActivity.class));
-        return true;
-      case R.id.chord_grid:
-        this.startActivity(new Intent(this, ChordGridActivity.class));
-        return true;
-      case R.id.edit_instrument:
-        this.startActivity(new Intent(this, InstrumentListActivity.class));
-        return true;
-      case R.id.compose:
-        this.startActivity(new Intent(this, ScoreActivity.class));
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    int i = item.getItemId();
+    if (i == R.id.piano) {
+      this.startActivity(new Intent(this, PianoActivity.class));
+      return true;
+    } else if (i == R.id.chord_grid) {
+      this.startActivity(new Intent(this, ChordGridActivity.class));
+      return true;
+    } else if (i == R.id.edit_instrument) {
+      this.startActivity(new Intent(this, InstrumentListActivity.class));
+      return true;
+    } else if (i == R.id.compose) {
+      this.startActivity(new Intent(this, ScoreActivity.class));
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
     }
   }
 

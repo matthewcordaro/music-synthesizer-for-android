@@ -1,0 +1,1 @@
+include ':android', ':core', ':j2se'

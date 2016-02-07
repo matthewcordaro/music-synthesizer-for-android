@@ -85,15 +85,15 @@ public class PianoActivity2 extends SynthActivity implements OnSharedPreferenceC
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.settings:
-        startActivity(new Intent(this, SettingsActivity.class));
-        return true;
-      case R.id.compose:
-        startActivity(new Intent(this, ScoreActivity.class));
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    int i = item.getItemId();
+    if (i == R.id.settings) {
+      startActivity(new Intent(this, SettingsActivity.class));
+      return true;
+    } else if (i == R.id.compose) {
+      startActivity(new Intent(this, ScoreActivity.class));
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
     }
   }
   @Override

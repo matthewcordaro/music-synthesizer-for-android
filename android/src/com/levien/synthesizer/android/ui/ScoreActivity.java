@@ -83,49 +83,49 @@ public class ScoreActivity extends SynthActivity {
 
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
-    switch (item.getItemId()) {
-      case R.id.new_score:
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("New score...");
-        builder.setMessage("This will erase any unsaved work.  Are you sure?");
-        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int which) {
-            scoreView_.getScore().clear();
-            scoreView_.invalidate();
-            scoreViewToolbar_.invalidate();
-            dialog.dismiss();
-          }
-        });
-        builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-          public void onClick(DialogInterface dialog, int which) {
-            dialog.dismiss();
-          }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
-        return true;
-      case R.id.open_score:
-        Storage.openScoreWithDialog(scoreView_.getScore(), new Storage.OpenScoreListener() {
-          public void onOpenScore(Builder score) {
-            scoreView_.invalidate();
-            scoreViewToolbar_.invalidate();
-          }
-        }, this);
-        return true;
-      case R.id.save_score:
-        Storage.saveScoreWithDialog(scoreView_.getScore().build(), this);
-        return true;
-      case R.id.piano:
-        this.startActivity(new Intent(this, PianoActivity.class));
-        return true;
-      case R.id.chord_grid:
-        this.startActivity(new Intent(this, ChordGridActivity.class));
-        return true;
-      case R.id.edit_instrument:
-        this.startActivity(new Intent(this, InstrumentListActivity.class));
-        return true;
-      default:
-        return super.onOptionsItemSelected(item);
+    int i = item.getItemId();
+    if (i == R.id.new_score) {
+      AlertDialog.Builder builder = new AlertDialog.Builder(this);
+      builder.setTitle("New score...");
+      builder.setMessage("This will erase any unsaved work.  Are you sure?");
+      builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+          scoreView_.getScore().clear();
+          scoreView_.invalidate();
+          scoreViewToolbar_.invalidate();
+          dialog.dismiss();
+        }
+      });
+      builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+        public void onClick(DialogInterface dialog, int which) {
+          dialog.dismiss();
+        }
+      });
+      AlertDialog dialog = builder.create();
+      dialog.show();
+      return true;
+    } else if (i == R.id.open_score) {
+      Storage.openScoreWithDialog(scoreView_.getScore(), new Storage.OpenScoreListener() {
+        public void onOpenScore(Builder score) {
+          scoreView_.invalidate();
+          scoreViewToolbar_.invalidate();
+        }
+      }, this);
+      return true;
+    } else if (i == R.id.save_score) {
+      Storage.saveScoreWithDialog(scoreView_.getScore().build(), this);
+      return true;
+    } else if (i == R.id.piano) {
+      this.startActivity(new Intent(this, PianoActivity.class));
+      return true;
+    } else if (i == R.id.chord_grid) {
+      this.startActivity(new Intent(this, ChordGridActivity.class));
+      return true;
+    } else if (i == R.id.edit_instrument) {
+      this.startActivity(new Intent(this, InstrumentListActivity.class));
+      return true;
+    } else {
+      return super.onOptionsItemSelected(item);
     }
   }
 

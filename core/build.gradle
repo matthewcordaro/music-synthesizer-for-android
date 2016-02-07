@@ -1,0 +1,44 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'java'
+apply plugin: 'com.google.protobuf'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.google.protobuf:protobuf-gradle-plugin:0.7.4'
+    }
+}
+
+dependencies {
+    compile 'com.google.protobuf:protobuf-java:2.6.1'
+}
+
+protobuf {
+    protoc {
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            // use the provided exe in windows
+            path = file('./protoc/protoc').absolutePath
+        } else {
+            // download from repo otherwise
+            artifact = 'com.google.protobuf:protoc:2.6.1'
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir 'src'
+        }
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.9'
+}
