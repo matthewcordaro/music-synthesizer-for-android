@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 apply plugin: 'java'
 apply plugin: 'com.google.protobuf'
 
@@ -16,7 +18,13 @@ dependencies {
 
 protobuf {
     protoc {
-        path = file('./protoc/protoc').absolutePath
+        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+            // use the provided exe in windows
+            path = file('./protoc/protoc').absolutePath
+        } else {
+            // download from repo otherwise
+            artifact = 'com.google.protobuf:protoc:2.6.1'
+        }
     }
 }
 
